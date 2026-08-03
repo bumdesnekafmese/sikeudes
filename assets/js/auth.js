@@ -11,7 +11,9 @@ async function loadLoginLogoAndName() {
       .single();
     if (error) throw error;
     if (data?.logo_url) {
-      document.getElementById("loginLogo").src = data.logo_url;
+      const loginLogoEl = document.getElementById("loginLogo");
+      loginLogoEl.src = data.logo_url;
+      loginLogoEl.style.display = "block"; // reset in case an earlier empty src hid it
     }
     if (data?.nama_bumdes) {
       document.getElementById("loginOrgName").textContent = data.nama_bumdes;
