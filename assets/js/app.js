@@ -38,7 +38,11 @@ async function init() {
 async function loadSettingsIntoShell() {
   const { data } = await supabaseClient.from("settings").select("*").eq("id", 1).single();
   if (data) {
-    if (data.logo_url) document.getElementById("brandLogo").src = data.logo_url;
+    if (data.logo_url) {
+      const logoEl = document.getElementById("brandLogo");
+      logoEl.src = data.logo_url;
+      logoEl.style.opacity = "1"; // reset in case an earlier empty src hid it
+    }
     document.getElementById("brandName").textContent = data.nama_bumdes || "BUMDes";
     document.getElementById("brandName2").textContent = data.nama_bumdes || "BUMDes";
     document.getElementById("villageAddr").textContent = data.alamat || "";
