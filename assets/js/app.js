@@ -43,6 +43,11 @@ async function loadSettingsIntoShell() {
       logoEl.src = data.logo_url;
       logoEl.style.opacity = "1"; // reset in case an earlier empty src hid it
     }
+    if (data.foto_desa_url) {
+      const villageImg = document.getElementById("villageImg");
+      villageImg.src = data.foto_desa_url;
+      villageImg.style.opacity = "1";
+    }
     document.getElementById("brandName").textContent = data.nama_bumdes || "BUMDes";
     document.getElementById("brandName2").textContent = data.nama_bumdes || "BUMDes";
     document.getElementById("villageAddr").textContent = data.alamat || "";
@@ -552,27 +557,67 @@ async function renderPengaturan() {
       <div class="field"><label>Nama BUMDes</label><input type="text" id="p_nama" value="${s?.nama_bumdes || ''}" ${isAdmin?"":"disabled"}></div>
       <div class="field"><label>Alamat</label><input type="text" id="p_alamat" value="${s?.alamat || ''}" ${isAdmin?"":"disabled"}></div>
       <div class="field"><label>Tahun Buku</label><input type="number" id="p_tahun" value="${s?.tahun_buku || new Date().getFullYear()}" ${isAdmin?"":"disabled"}></div>
+    </div>
+    <div class="panel" style="max-width:520px;margin-top:16px">
+      <div class="panel-head"><h3>Foto Kartu Desa (Sidebar)</h3></div>
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:6px">
+        <img id="villagePreview" class="logo-preview" src="${s?.foto_desa_url || ''}" onerror="this.style.opacity=0">
+        <div>
+          <input type="file" id="p_desa_file" accept="image/*" ${isAdmin ? "" : "disabled"}>
+          <p style="font-size:11.5px;color:var(--muted);margin:6px 0 0">Tampil di kartu desa bagian bawah sidebar.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel" style="max-width:520px;margin-top:16px">
+      <div class="panel-head"><h3>Background Halaman Login</h3></div>
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:6px">
+        <img id="loginBgPreview" class="logo-preview" src="${s?.login_bg_url || ''}" onerror="this.style.opacity=0">
+        <div>
+          <input type="file" id="p_bg_file" accept="image/*" ${isAdmin ? "" : "disabled"}>
+          <p style="font-size:11.5px;color:var(--muted);margin:6px 0 0">Foto ini muncul sebagai latar belakang halaman login (disarankan foto lanskap/landscape).</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel" style="max-width:520px;margin-top:16px">
       ${isAdmin ? `<button class="btn primary" onclick="saveSettings()">Simpan Pengaturan</button>` : `<p style="font-size:12.5px;color:var(--muted)">Hanya admin yang dapat mengubah pengaturan.</p>`}
     </div>
   `;
 }
+async function uploadToLogos(file, prefix) {
+  const path = `${prefix}_${Date.now()}_${file.name}`;
+  const { error: upErr } = await supabaseClient.storage.from("logos").upload(path, file, { upsert: true });
+  if (upErr) { toast("Gagal unggah gambar: " + upErr.message); return null; }
+  const { data: pub } = supabaseClient.storage.from("logos").getPublicUrl(path);
+  return pub.publicUrl;
+}
+
 async function saveSettings() {
-  const fileInput = document.getElementById("p_logo_file");
-  let logo_url;
-  if (fileInput.files[0]) {
-    const file = fileInput.files[0];
-    const path = `logo_${Date.now()}_${file.name}`;
-    const { error: upErr } = await supabaseClient.storage.from("logos").upload(path, file, { upsert: true });
-    if (upErr) { toast("Gagal unggah logo: " + upErr.message); return; }
-    const { data: pub } = supabaseClient.storage.from("logos").getPublicUrl(path);
-    logo_url = pub.publicUrl;
-  }
+  const logoFile = document.getElementById("p_logo_file").files[0];
+  const desaFile = document.getElementById("p_desa_file").files[0];
+  const bgFile = document.getElementById("p_bg_file").files[0];
+
   const payload = {
     nama_bumdes: document.getElementById("p_nama").value.trim(),
     alamat: document.getElementById("p_alamat").value.trim(),
     tahun_buku: Number(document.getElementById("p_tahun").value),
   };
-  if (logo_url) payload.logo_url = logo_url;
+
+  if (logoFile) {
+    const url = await uploadToLogos(logoFile, "logo");
+    if (!url) return;
+    payload.logo_url = url;
+  }
+  if (desaFile) {
+    const url = await uploadToLogos(desaFile, "desa");
+    if (!url) return;
+    payload.foto_desa_url = url;
+  }
+  if (bgFile) {
+    const url = await uploadToLogos(bgFile, "loginbg");
+    if (!url) return;
+    payload.login_bg_url = url;
+  }
+
   const { error } = await supabaseClient.from("settings").update(payload).eq("id", 1);
   if (error) { toast("Gagal: " + error.message); return; }
   toast("Pengaturan disimpan");
