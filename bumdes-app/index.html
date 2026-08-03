@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masuk - SIKEUDES BUMDes</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <img id="loginLogo" class="login-logo" src="" alt="Logo" onerror="this.style.display='none'">
+      <h1 id="loginOrgName">SIKEUDES</h1>
+      <p class="sub">Sistem Keuangan Digital BUMDes</p>
+
+      <div class="login-error" id="loginError"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="admin@bumdes.id" required>
+        </div>
+        <div class="field">
+          <label>Kata Sandi</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-primary" id="loginBtn">Masuk</button>
+      </form>
+
+      <div class="login-foot">© 2026 SIKEUDES. Sistem Keuangan Digital BUMDes.</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase-client.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - SIKEUDES BUMDes</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img id="brandLogo" src="" alt="Logo" onerror="this.style.opacity=0">
+        <div>
+          <div class="name" id="brandName">SIKEUDES</div>
+          <div class="tag">Sistem Keuangan Digital</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="item" data-section="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          Dashboard
+        </div>
+        <div class="item" data-section="transaksi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          Transaksi
+        </div>
+        <div class="item" data-section="kasbank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 12h.01M2 10h20"/></svg>
+          Kas &amp; Bank
+        </div>
+        <div class="item" data-section="laporan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v5h5M6 3h8l5 5v13H6z"/><path d="M9 13h6M9 17h6"/></svg>
+          Laporan Keuangan
+        </div>
+        <div class="item" data-section="aset">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-8h6v8"/></svg>
+          Aset
+        </div>
+        <div class="item" data-section="unitusaha">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18M3 15h18M3 5h18v14H3z"/></svg>
+          Unit Usaha
+        </div>
+        <div class="item" data-section="dokumen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v5h5M6 3h8l5 5v13H6z"/></svg>
+          Dokumen
+        </div>
+        <div class="item" data-section="pengguna">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-6 7-6s7 2.7 7 6M17 11c2 0 4 1.6 4 4"/></svg>
+          Pengguna
+        </div>
+        <div class="item admin-only" data-section="pengaturan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          Pengaturan
+        </div>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="village-card">
+          <img src="https://images.unsplash.com/photo-1500930540289-620ee6764e5b?w=400" alt="Desa">
+          <div class="vc-body">
+            <b id="brandName2">BUMDes</b>
+            <span id="villageAddr">Desa</span>
+          </div>
+        </div>
+        <label style="font-size:11px;color:#8ea0c4;display:block;margin-bottom:5px">Tahun Buku</label>
+        <select class="year-select" id="tahunBuku"><option>2026</option><option>2025</option><option>2024</option></select>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <div>
+          <h2 id="pageTitle">Dashboard</h2>
+          <div class="sub" id="pageSub">Selamat datang, <span id="welcomeOrg">BUMDes</span></div>
+        </div>
+        <div class="topbar-right">
+          <div class="date" id="todayDate"></div>
+          <div style="text-align:right;line-height:1.2">
+            <div style="font-size:13px;font-weight:600" id="userName">-</div>
+            <div style="font-size:11px;color:var(--muted)" id="userRole">-</div>
+          </div>
+          <div class="avatar" id="userInitial">U</div>
+          <button class="icon-btn" id="logoutBtn" title="Keluar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="content" id="content">
+        <div class="empty">Memuat...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    document.getElementById("todayDate").textContent = new Date().toLocaleDateString("id-ID", { day:"2-digit", month:"long", year:"numeric" });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="assets/js/supabase-client.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
