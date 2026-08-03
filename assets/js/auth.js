@@ -6,7 +6,7 @@ async function loadLoginLogoAndName() {
   try {
     const { data, error } = await supabaseClient
       .from("settings")
-      .select("logo_url,nama_bumdes")
+      .select("logo_url,nama_bumdes,login_bg_url")
       .eq("id", 1)
       .single();
     if (error) throw error;
@@ -17,6 +17,12 @@ async function loadLoginLogoAndName() {
     }
     if (data?.nama_bumdes) {
       document.getElementById("loginOrgName").textContent = data.nama_bumdes;
+    }
+    if (data?.login_bg_url) {
+      const wrap = document.getElementById("loginWrap");
+      wrap.style.backgroundImage = `linear-gradient(rgba(11,18,38,.75), rgba(11,18,38,.75)), url('${data.login_bg_url}')`;
+      wrap.style.backgroundSize = "cover";
+      wrap.style.backgroundPosition = "center";
     }
   } catch (e) {
     // Jika tabel settings belum dikonfigurasi, gunakan default diam-diam
